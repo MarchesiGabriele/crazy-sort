@@ -1,7 +1,6 @@
 package sort_crazy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
@@ -12,7 +11,7 @@ public class main {
 		List<Integer> list  = new ArrayList<>();
 		
 		Random r = new Random();
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 1000000; i++) {
 			list.add(Math.abs(r.nextInt()));
 		}
 		
@@ -33,6 +32,7 @@ public class main {
 		//System.out.println("Iniziale: " + list);
 		
 		// TROVO MAX ASSOLUTO
+		long startTotal = System.currentTimeMillis();
 		List<Integer> x = new ArrayList<Integer>(list);
 		for( int i = 0; i < x.size(); i++ ){
 		   x.set( i, Math.abs(x.get(i)) );
@@ -46,7 +46,19 @@ public class main {
 		int numeroCifre = new String("" + max).length();
 
 		Queue<Integer> res = new ArrayDeque<>();
+		
+		long startCompute = System.currentTimeMillis();
 		sort(list, numeroCifre, res, numeroCifre);
+		long endCompute = System.currentTimeMillis();
+		long endTotal= System.currentTimeMillis();
+		
+		System.out.println("TEMPO COMPUTAZIONE: " + (endCompute-startCompute) + " ms");
+		System.out.println("TEMPO TOTALE: " + (endTotal-startTotal) + " ms");
+		
+		startCompute = System.currentTimeMillis();
+		Collections.sort(list);
+		endCompute = System.currentTimeMillis();
+		System.out.println("TEMPO TOTALE COLLECTIONS : " + (endCompute-startCompute) + " ms");
 }
 	
 	static void sort(List<Integer> list, int index, Queue<Integer>res, int maxIndex) {

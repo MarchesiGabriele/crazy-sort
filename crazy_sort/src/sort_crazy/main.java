@@ -2,7 +2,9 @@ package sort_crazy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
@@ -47,8 +49,10 @@ public class main {
 
 		Queue<Integer> res = new ArrayDeque<>();
 		
+		Queue<Integer> queue = new ArrayDeque<>(list);
+		
 		long startCompute = System.currentTimeMillis();
-		sort(list, numeroCifre, res, numeroCifre);
+		sort(queue, numeroCifre, res, numeroCifre);
 		long endCompute = System.currentTimeMillis();
 		long endTotal= System.currentTimeMillis();
 		
@@ -61,11 +65,13 @@ public class main {
 		System.out.println("TEMPO TOTALE COLLECTIONS : " + (endCompute-startCompute) + " ms");
 }
 	
-	static void sort(List<Integer> list, int index, Queue<Integer>res, int maxIndex) {
-		List<List<Integer>> ll = new ArrayList<>();
+	static void sort(Queue<Integer> list, int index, Queue<Integer>res, int maxIndex) {
+		//List<List<Integer>> ll = new ArrayList<>(10);
+		Map<Integer, ArrayDeque<Integer>> ll = new HashMap<>();
 		
 		for(int i = 0; i<10; i++) {
-			ll.add(new ArrayList<>());
+			//ll.add(new ArrayList<>());
+			ll.put(i, new ArrayDeque<Integer>());
 		}
 		
 		// Se la lista attuale contiene un solo element lo aggiungo ai risultati
@@ -78,6 +84,8 @@ public class main {
 		}
 			
 		// Scorro lista attuale
+		String cifra = "";
+		int newIndex = 0;
 		for(Integer a : list) {
 			// Se la cifra index che voglio controllare è zero, metto il numero nella lista zeri
 			if(a < Math.pow(10, index-1)) {
@@ -86,10 +94,10 @@ public class main {
 				ll.get(0).add(a);
 			}else {
 				// Cifra iniziale destra
-				String cifra = new String(""+(int)(a/Math.pow(10,index-1)));
+				cifra = new String(""+(int)(a/Math.pow(10,index-1)));
 				//System.out.println(cifra + " len "+ cifra.length());
 				
-				int newIndex = 0;
+				newIndex = 0;
 				if(cifra.length() > 1) {
 					//System.out.println("cifra: " + cifra + " , index: " + index + " , maxIndex: " + maxIndex + 
 					//"\n cifraLen: " + cifra.length());
@@ -105,9 +113,9 @@ public class main {
 		}
 		
 		// Per ciascuna delle 10 liste eseguo ricorsione, riducendo di 1 l'index della cifra da controllare
-		for(List<Integer> la : ll) {
-			if(la.size() != 0)
-				sort(la, index-1 ,res, maxIndex);
+		for(ArrayDeque<Integer> queue: ll.values()) {
+			if(queue.peek() != null)
+				sort(queue, index-1 ,res, maxIndex);
 		}
 		
 		// Stampo il risultato

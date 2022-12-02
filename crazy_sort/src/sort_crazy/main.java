@@ -42,7 +42,7 @@ public class main {
 		
 		list.add(10);
 		list.add(1);
-		list.add(-10);
+		list.add(10);
 		list.add(500);
 		
 		
@@ -76,10 +76,19 @@ public class main {
 			ll.add(new ArrayList<>());
 		}
 		
-		System.out.println(ll.get(0));
-		
-		if(list.size() == 1){
-			res.add(list.iterator().next());
+		// TODO: cercare di ottimizzare 
+		int tt = list.get(0);
+		boolean flag = true;
+		for(Integer b: list) {
+			if(b != tt) {
+				flag = false;
+				break;
+			}
+		}
+		if(list.size() == 1 || flag){
+			for(Integer a: list) {
+			res.add(a);
+			}
 			return;
 		}
 		
@@ -90,8 +99,10 @@ public class main {
 				String cifra = new String(""+(int)(a/Math.pow(10,index-1)));
 				// Cifra iniziale destra
 				int newIndex = 0;
-				if(cifra.length() > 1)
+				if(cifra.length() > 1){
+					System.out.println(5-index);
 					newIndex = cifra.charAt(5-index) - '0';
+				}
 				else
 					newIndex = Integer.parseInt(cifra);
 				

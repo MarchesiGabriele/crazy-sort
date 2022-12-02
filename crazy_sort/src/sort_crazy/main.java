@@ -1,37 +1,50 @@
 package sort_crazy;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 public class main {
 	public static void main(String[] args) {
 		List<Integer> list  = new ArrayList<>();
-		/*list.add(100);
-		list.add(3560);
-		list.add(88192);
-		list.add(21);
-		list.add(88191);
-		*/
 		
-		list.add(10);
-		list.add(-110);
+		Random r = new Random();
+		for (int i = 0; i < 100000; i++) {
+			list.add(Math.abs(r.nextInt()));
+		}
+		
+		
+		// DOESNT WORK WITH THIS:
+		/*		
 		list.add(1);
-		list.add(11);
-		list.add(500);
-		list.add(10);
+		list.add(-1);
+		list.add(1);
+		list.add(-5);
+		 */		
 		
+		list.add(1000);
+		list.add(650);
+		list.add(3);
+		list.add(82);
 		
-		System.out.println("Iniziale: " + list);
+		//System.out.println("Iniziale: " + list);
 		
-		// TROVO MAX
-		int max = Collections.max(list);
+		// TROVO MAX ASSOLUTO
+		List<Integer> x = new ArrayList<Integer>(list);
+		for( int i = 0; i < x.size(); i++ ){
+		   x.set( i, Math.abs(x.get(i)) );
+		}
+		int max = Collections.max(x);		
+
+		//int max = Collections.max(list);
 
 		
 		// NUMERO CIFRE MAX
 		int numeroCifre = new String("" + max).length();
-		
+
 		Queue<Integer> res = new ArrayDeque<>();
 		sort(list, numeroCifre, res, numeroCifre);
 }
@@ -45,7 +58,7 @@ public class main {
 		
 		// Se la lista attuale contiene un solo element lo aggiungo ai risultati
 		// se index == 1 allora anche se ho più elementi li aggiungo al risultato, dato che sono uguali
-		if(list.size() == 1 || index == 1){
+		if(list.size() == 1 || index == 0){
 			for(Integer a: list) {
 				res.add(a);
 			}
@@ -56,16 +69,24 @@ public class main {
 		for(Integer a : list) {
 			// Se la cifra index che voglio controllare è zero, metto il numero nella lista zeri
 			if(a < Math.pow(10, index-1)) {
+				//System.out.println("zeros " + a);
+				//System.out.println(Math.pow(10, index-1));
 				ll.get(0).add(a);
 			}else {
 				// Cifra iniziale destra
 				String cifra = new String(""+(int)(a/Math.pow(10,index-1)));
+				//System.out.println(cifra + " len "+ cifra.length());
+				
 				int newIndex = 0;
-				if(cifra.length() > 1)
-					newIndex = cifra.charAt(maxIndex-index) - '0';
+				if(cifra.length() > 1) {
+					//System.out.println("cifra: " + cifra + " , index: " + index + " , maxIndex: " + maxIndex + 
+					//"\n cifraLen: " + cifra.length());
+					newIndex = cifra.charAt(cifra.length()-1) - '0';
+				}
 				else
 					newIndex = Integer.parseInt(cifra);
 				
+				//System.out.println("non zeros " + newIndex);
 				// Aggiungo il valore alla lista in base alla cifra index che sto controllando
 				ll.get(newIndex).add(a);
 			}
@@ -79,6 +100,7 @@ public class main {
 		
 		// Stampo il risultato
 		if(index == maxIndex)
-			System.out.println("res: " + res);
+			//System.out.println("res: " + res);
+			System.out.println("fine");
 	}
 }

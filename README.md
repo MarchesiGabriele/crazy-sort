@@ -6,8 +6,8 @@ This is a mixture of Integer Sort and Radix Sort.
 
 We start by searching the maximum value of the list. This allow us to get the max number of characters of the biggest number. 
 
-Insted of starting by the least significant value like the Radix Sort, we start from the most significant. (This is why we need to know the max number of chars).
-All the smaller numbers will have a zero as the most significant value. 
+Instead of starting by the least significant digit like the Radix Sort, we start from the most significant. (This is why we need to know the max number of chars).
+All the smaller numbers will have a zero as the most significant value es. (1000, 0010, 0201 ...)
 
 Then instead of sorting with > and < operators, we put the values inside one of the 10 lists created at each iteration of the function. The single value that we are analyzing represents the index of the list where it will be inserted into (this is the same concept used in Integer Sort).
 This way we don't have to worry abount having to many lists (as it may happen using Integer Sort). Also since we are starting from the most significant value, if there are really big and small numbers inside the initial list, they already get sorted. 

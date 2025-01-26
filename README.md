@@ -10,7 +10,7 @@ Instead of starting by the least significant digit like the Radix Sort, we start
 All the smaller numbers will have a zero as the most significant value es. (1000, 0010, 0201 ...)
 
 Then instead of sorting with > and < operators, we put the values inside one of the 10 lists created at each iteration of the function. The single value that we are analyzing represents the index of the list where it will be inserted into (this is the same concept used in Integer Sort).
-This way we don't have to worry abount having to many lists (as it may happen using Integer Sort). Also since we are starting from the most significant value, if there are really big and small numbers inside the initial list, they already get sorted. 
+This way we don't have to worry abount having to many lists (as it may happen using Integer Sort). Also since we are starting from the most significant value, if there are really big and small numbers inside the initial list, they already get sorted without creating very long lists as the Integer sort would do. 
 
 The sorting happens when the base step of the recursion insert the item into the sorted result list.
 
